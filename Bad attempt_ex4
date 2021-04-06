@@ -1,0 +1,52 @@
+t = 0:0.05:10;     % Time vector of the simulation
+w = 1;             % Angular speed of OA [rad/s]
+a = 0.1;           % Length of OA
+b = 0.2;            % Length of AB
+phi_1 = pi/6 + w*t; %Known angle
+
+%find angle theta and d by sinus theory, sin(30)=0.5
+sin_th=(a*0.5)/b;
+angle=asin(sin_th)*(180/pi);
+d=(b*sin(angle+phi_1))/sin(phi_1);
+
+x=[angle; d];
+% set a reasonable starting point
+x0 = [0; b + a];
+% create function handles
+F = @(x) constraint(x, a, b, d, phi_1);
+% derevative
+Fder = @(x) solve(x, a, b, phi_1);
+eps = 1e-9;
+
+%[x, iteration_counter] = NR_method(F, Fder, x, eps);
+
+%function [x, iteration_counter] = NR_method(F, Fder, x, eps)
+%iterlimit = 50;
+%F_value = F(x);
+%F_norm = norm(F_value); % L2 norm of vector
+%iteration_counter = 0;
+%while F_norm > eps && iteration_counter < iterlimit
+    %delta = Fder(x)\-F_value;
+    %x = x + delta;
+    %F_value = F(x);
+    %F_norm = norm(F_value);
+    %iteration_counter = iteration_counter + 1;
+% Here, either a solution is found, or too many iterations
+%if F_norm > eps
+   % iteration_counter = -1;
+%end
+%end 
+
+function P = constraint(x, a, b, d, phi_1)
+angle = x(1);
+d = x(2);
+
+P = [a * cos(phi_1) + b * cos(angle) - d
+    a * sin(phi_1) - b * sin(angle)];
+end
+function Der = solve(x, a, b, phi_1)
+angle = x(1);
+
+Der = [-a *-1* sin(phi_1) - b *(-0.45)* sin(angle) - 0.072
+    a*-1* cos(phi_1) - b *(-0.45)* cos(angle)];
+end
