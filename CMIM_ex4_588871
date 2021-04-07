@@ -22,13 +22,13 @@ end
 angle=(U(1,:));
 d=U(2,:);
 figure  % Displacement over time
-plot(t, d)
+plot(t, d,'r-')
 title('Displacement d over time');
 xlabel('Time t (s)')
 ylabel('Displacement d (m) ')
 
 figure % Theta over time
-plot(t, rad2deg(angle))
+plot(t, rad2deg(angle),'m-.')
 title('Angle \theta over time');
 xlabel('Time t (s)')
 ylabel('Angle \theta (\circ) ')
@@ -37,7 +37,7 @@ g = gradient(angle)./gradient(t) ;
 
 % time derivative of angle theta 
 figure
-plot(t,g);
+plot(t,g,'r-');
 title('Angular velocity $\dot{\theta}$ over time', 'Interpreter','latex');
 xlabel('Time t (s)')
 ylabel('Angular velocity $\dot{d}$ (rad/s)', 'Interpreter','latex')
@@ -45,7 +45,7 @@ g1 = gradient(d)./gradient(t) ;
 
 % time derivative of displacement 
 figure 
-plot(t,g1);
+plot(t,g1,'m-.');
 title('Velocity $\dot{d}$ over time', 'Interpreter','latex');
 xlabel('Time t (s)')
 ylabel('Velocity $\dot{d}$ (m/s)', 'Interpreter','latex')
