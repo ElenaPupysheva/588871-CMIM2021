@@ -6,7 +6,7 @@ close all
 a = 0.1;
 b = 0.2;
 omega=1;
-t=0:0.01:10
+t=0:0.05:10
 phi_1 = pi/6+omega*t;
 u0 = [0; b + a];
 J = @(u) jacobian(u, b);
